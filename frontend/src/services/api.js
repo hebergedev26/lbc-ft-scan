@@ -125,16 +125,18 @@ export async function hydrateCache() {
     for (let attempt = 0; attempt < 3 && !online; attempt++) {
       const timeoutMs = attempt === 0 ? 25000 : 40000;
       console.log(`[LBC-FT] tentative ${attempt + 1} (timeout ${timeoutMs}ms)`);
-      const [sanctions, ppe, clients] = await Promise.all([
+      const [sanctionsData, clients] = await Promise.all([
         tryFetchJson('/api/sanctions', timeoutMs),
         tryFetchJson('/api/clients/full', timeoutMs),
       ]);
-      if (sanctions && clients) {
-        _sanctions = sanctions.sanctions;
-        _ppe = sanctions.ppe;
+      if (sanctionsData && Array.isArray(clients) && clients.length > 0) {
+        const sanctionsList = sanctionsData.sanctions || [];
+        const ppeList = sanctionsData.ppe || [];
+        _sanctions = sanctionsList;
+        _ppe = ppeList;
         _clients = clients;
         try {
-          await cacheSanctions(sanctions.sanctions, sanctions.ppe);
+          await cacheSanctions(sanctionsList, ppeList);
           await cacheClients(clients);
         } catch {
           /* le cache IDB reste dans les variables mémoire */
