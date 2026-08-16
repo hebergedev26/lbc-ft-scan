@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Systeme de filtrage LBC/FT/FP pour IMF - API Express + frontend React (PWA offline).",
   "engines": {
-    "node": ">=20"
+    "node": "22.x"
   },
   "scripts": {
     "build": "npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install",
