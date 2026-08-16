@@ -99,10 +99,19 @@ export function resetLocalState() {
 async function tryFetchJson(url, timeoutMs = 12000) {
   try {
     const res = await withTimeout(fetch(url), timeoutMs);
-    if (!res.ok) return null;
-    return await res.json();
+    if (!res.ok) {
+      const msg = `${url}: HTTP ${res.status} ${res.statusText}`;
+      _syncErrors.push(msg);
+      console.warn('[LBC-FT]', msg);
+      return null;
+    }
+    const data = await res.json();
+    console.log('[LBC-FT] OK', url);
+    return data;
   } catch (err) {
-    _syncErrors.push(`${url}: ${err.name === 'TimeoutError' || err.message === 'timeout' ? 'délai dépassé' : err.message}`);
+    const msg = `${url}: ${err.name === 'TimeoutError' || err.message === 'timeout' ? 'délai dépassé' : err.message}`;
+    _syncErrors.push(msg);
+    console.warn('[LBC-FT]', msg);
     return null;
   }
 }
@@ -110,10 +119,12 @@ async function tryFetchJson(url, timeoutMs = 12000) {
 export async function hydrateCache() {
   let online = false;
   _syncErrors = [];
+  console.log('[LBC-FT] hydrateCache: navigator.onLine =', navigator.onLine);
 
   if (navigator.onLine) {
     for (let attempt = 0; attempt < 3 && !online; attempt++) {
       const timeoutMs = attempt === 0 ? 25000 : 40000;
+      console.log(`[LBC-FT] tentative ${attempt + 1} (timeout ${timeoutMs}ms)`);
       const [sanctions, ppe, clients] = await Promise.all([
         tryFetchJson('/api/sanctions', timeoutMs),
         tryFetchJson('/api/clients/full', timeoutMs),
@@ -130,13 +141,16 @@ export async function hydrateCache() {
         }
         lastSync = new Date().toISOString();
         online = true;
+        console.log('[LBC-FT] sync OK');
       } else if (attempt < 2) {
+        console.log(`[LBC-FT] echec tentative ${attempt + 1}, nouvelle tentative dans 4s`);
         await sleep(4000);
       }
     }
   }
 
   _apiReachable = online;
+  console.log('[LBC-FT] hydrateCache: apiReachable =', online);
 
   if (!online) {
     const [s, p, c] = await Promise.all([getCachedSanctions(), getCachedPpe(), getCachedClients()]);
