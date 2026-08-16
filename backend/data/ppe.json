@@ -1,0 +1,90 @@
+[
+  {
+    "id": "PPE-01",
+    "nom": "Diop",
+    "prenom": "Moussa",
+    "date_naissance": "1980-05-14",
+    "liste": "BCEAO",
+    "type": "ppe",
+    "motif": "Ancien ministre de l'Economie et des Finances",
+    "risque": "moyen",
+    "reference": "PPE-BCEAO-2026-01"
+  },
+  {
+    "id": "PPE-02",
+    "nom": "Toure",
+    "prenom": "Aminata",
+    "date_naissance": "1992-11-03",
+    "liste": "BCEAO",
+    "type": "ppe",
+    "motif": "Directrice Generale d'une banque publique",
+    "risque": "moyen",
+    "reference": "PPE-BCEAO-2026-02"
+  },
+  {
+    "id": "PPE-03",
+    "nom": "Ndiaye",
+    "prenom": "Ibrahima",
+    "date_naissance": "1968-04-21",
+    "liste": "BCEAO",
+    "type": "ppe",
+    "motif": "Membre du Parlement - Commission des Finances",
+    "risque": "moyen",
+    "reference": "PPE-BCEAO-2026-03"
+  },
+  {
+    "id": "PPE-04",
+    "nom": "Ba",
+    "prenom": "Abdou",
+    "date_naissance": "1972-09-09",
+    "liste": "BCEAO",
+    "type": "ppe",
+    "motif": "Directeur de la Douane nationale",
+    "risque": "moyen",
+    "reference": "PPE-BCEAO-2026-04"
+  },
+  {
+    "id": "PPE-05",
+    "nom": "Sow",
+    "prenom": "Coumba",
+    "date_naissance": "1978-12-01",
+    "liste": "BCEAO",
+    "type": "ppe",
+    "motif": "Directrice des Marches publics",
+    "risque": "moyen",
+    "reference": "PPE-BCEAO-2026-05"
+  },
+  {
+    "id": "PPE-06",
+    "nom": "Kane",
+    "prenom": "Ousmane",
+    "date_naissance": "1965-06-17",
+    "liste": "BCEAO",
+    "type": "ppe",
+    "motif": "Secretaire d'Etat aux Investissements",
+    "risque": "moyen",
+    "reference": "PPE-BCEAO-2026-06"
+  },
+  {
+    "id": "PPE-07",
+    "nom": "Sall",
+    "prenom": "Boubacar",
+    "date_naissance": "1970-10-30",
+    "liste": "BCEAO",
+    "type": "ppe",
+    "motif": "Gouverneur adjoint de banque centrale",
+    "risque": "moyen",
+    "reference": "PPE-BCEAO-2026-07"
+  },
+  {
+    "id": "PPE-08",
+    "nom": "Gueye",
+    "prenom": "Awa",
+    "date_naissance": "1985-02-25",
+    "liste": "BCEAO",
+    "type": "ppe",
+    "motif": "Maire d'une commune de la capitale",
+    "risque": "moyen",
+    "reference": "PPE-BCEAO-2026-08"
+  }
+]

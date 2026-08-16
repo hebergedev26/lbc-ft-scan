@@ -1,0 +1,18 @@
+{
+  "name": "LBC-FT-Scan",
+  "short_name": "LBC-FT",
+  "description": "Filtrage des sanctions et surveillance client pour les IMF - fonctionne hors ligne.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f2a43",
+  "theme_color": "#0f2a43",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

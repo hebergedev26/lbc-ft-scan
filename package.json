@@ -1,0 +1,12 @@
+{
+  "name": "lbc-ft-scan",
+  "version": "1.0.0",
+  "description": "Systeme de filtrage LBC/FT/FP pour IMF - API Express + frontend React (PWA offline).",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install",
+    "start": "npm --prefix backend start"
+  }
+}

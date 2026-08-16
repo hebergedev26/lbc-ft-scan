@@ -1,0 +1,142 @@
+[
+  {
+    "id": "CLI-0001",
+    "nom": "Diop",
+    "prenom": "Moussa",
+    "date_naissance": "1980-05-14",
+    "sexe": "M",
+    "telephone": "+221 77 123 45 67",
+    "adresse": "Medina, Dakar",
+    "profession": "Commercant",
+    "comptes": [
+      {
+        "numero": "SN-001-2345-01",
+        "type": "Epargne",
+        "solde": 1850000,
+        "devise": "FCFA",
+        "date_ouverture": "2019-04-12",
+        "statut": "actif"
+      },
+      {
+        "numero": "SN-001-2345-02",
+        "type": "Compte courant",
+        "solde": 650000,
+        "devise": "FCFA",
+        "date_ouverture": "2021-08-03",
+        "statut": "actif"
+      }
+    ]
+  },
+  {
+    "id": "CLI-0002",
+    "nom": "Diallo",
+    "prenom": "Mamadou",
+    "date_naissance": "1975-01-30",
+    "sexe": "M",
+    "telephone": "+221 70 555 22 11",
+    "adresse": "Rufisque",
+    "profession": "Importateur",
+    "comptes": [
+      {
+        "numero": "SN-002-3456-01",
+        "type": "Compte courant",
+        "solde": 3200000,
+        "devise": "FCFA",
+        "date_ouverture": "2018-02-20",
+        "statut": "actif"
+      },
+      {
+        "numero": "SN-002-3456-02",
+        "type": "Epargne",
+        "solde": 800000,
+        "devise": "FCFA",
+        "date_ouverture": "2020-06-15",
+        "statut": "actif"
+      }
+    ]
+  },
+  {
+    "id": "CLI-0003",
+    "nom": "Toure",
+    "prenom": "Aminata",
+    "date_naissance": "1992-11-03",
+    "sexe": "F",
+    "telephone": "+221 76 888 99 00",
+    "adresse": "Plateau, Dakar",
+    "profession": "Directrice financiere",
+    "comptes": [
+      {
+        "numero": "SN-003-4567-01",
+        "type": "Epargne",
+        "solde": 950000,
+        "devise": "FCFA",
+        "date_ouverture": "2022-01-10",
+        "statut": "actif"
+      },
+      {
+        "numero": "SN-003-4567-02",
+        "type": "Epargne",
+        "solde": 450000,
+        "devise": "FCFA",
+        "date_ouverture": "2023-09-25",
+        "statut": "actif"
+      }
+    ]
+  },
+  {
+    "id": "CLI-0004",
+    "nom": "Diop-Sow",
+    "prenom": "Moussa",
+    "date_naissance": "1985-08-22",
+    "sexe": "M",
+    "telephone": "+221 78 222 33 44",
+    "adresse": "Parcelles Assainies",
+    "profession": "Enseignant",
+    "comptes": [
+      {
+        "numero": "SN-004-5678-01",
+        "type": "Compte courant",
+        "solde": 220000,
+        "devise": "FCFA",
+        "date_ouverture": "2021-03-18",
+        "statut": "actif"
+      },
+      {
+        "numero": "SN-004-5678-02",
+        "type": "Epargne",
+        "solde": 1300000,
+        "devise": "FCFA",
+        "date_ouverture": "2022-11-05",
+        "statut": "actif"
+      }
+    ]
+  },
+  {
+    "id": "CLI-0005",
+    "nom": "Ndiaye",
+    "prenom": "Fatou",
+    "date_naissance": "1988-02-17",
+    "sexe": "F",
+    "telephone": "+221 77 999 11 22",
+    "adresse": "Thies",
+    "profession": "Transformatrice de produits agricoles",
+    "comptes": [
+      {
+        "numero": "SN-005-6789-01",
+        "type": "Epargne",
+        "solde": 150000,
+        "devise": "FCFA",
+        "date_ouverture": "2020-12-01",
+        "statut": "actif"
+      },
+      {
+        "numero": "SN-005-6789-02",
+        "type": "Credit",
+        "solde": -350000,
+        "devise": "FCFA",
+        "date_ouverture": "2024-04-20",
+        "statut": "actif"
+      }
+    ]
+  }
+]
