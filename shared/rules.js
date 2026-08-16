@@ -9,7 +9,7 @@ export const THRESHOLDS = {
 export const SEUIL_BLOQUANT = THRESHOLDS.FORT;
 export const SEUIL_INFORMATIF = THRESHOLDS.PROBABLE;
 
-const LISTE_BLOQUANTE = new Set(['ONU', 'UE', 'terroriste', 'financier']);
+const LISTE_BLOQUANTE = new Set(['onu', 'ue', 'terroriste', 'financier']);
 
 export function isListeBloquante(liste) {
   const l = String(liste || '').toLowerCase();

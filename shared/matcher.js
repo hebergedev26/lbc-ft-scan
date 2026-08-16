@@ -1,4 +1,5 @@
 export function normalize(s = '') {
+  if (s === null || s === undefined) return '';
   return String(s)
     .toLowerCase()
     .normalize('NFD')
@@ -113,8 +114,9 @@ export function matchPerson(query, candidate) {
   let score = totalLen + unmatchedLen * 0.5 ? (100 * matchedLen) / (totalLen + unmatchedLen * 0.5) : 0;
 
   let bonus = 0;
-  if (query.dob && candidate.dob) {
-    if (query.dob === candidate.dob) bonus += 8;
+  const cDob = candidate.dob || candidate.date_naissance;
+  if (query.dob && cDob) {
+    if (query.dob === cDob) bonus += 8;
     else if (score >= 85) bonus -= 10;
   }
 
@@ -128,15 +130,15 @@ export function matchPerson(query, candidate) {
     details: {
       raw: Math.round(score),
       bonus,
-      exactDob: !!(query.dob && candidate.dob && query.dob === candidate.dob),
+      exactDob: !!(query.dob && cDob && query.dob === cDob),
     },
   };
 }
 
 export function matchLevel(score, hasStrongToken = false) {
   if (score >= 85) return 'fort';
+  if (score >= 75) return 'probable';
   if (score >= 60 && hasStrongToken) return 'probable';
-  if (score >= 60 && score >= 75) return 'probable';
   if (score >= 50 && hasStrongToken) return 'faible';
   return 'aucun';
 }

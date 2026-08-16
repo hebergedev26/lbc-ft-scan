@@ -7,6 +7,8 @@
   },
   "scripts": {
     "build": "npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install",
-    "start": "npm --prefix backend start"
+    "start": "npm --prefix backend start",
+    "test": "node --test \"test/*.test.mjs\"",
+    "test:live": "node --test test/live.test.mjs"
   }
 }

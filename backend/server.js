@@ -11,7 +11,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 4000;
 
 const data = loadData();
-const db = createDb(join(__dirname, 'lbc-ft.db'));
+const DB_PATH = process.env.DB_PATH || join(__dirname, 'lbc-ft.db');
+const db = createDb(DB_PATH);
 seed(db, data);
 
 const app = express();
