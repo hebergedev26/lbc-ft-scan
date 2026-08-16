@@ -78,9 +78,22 @@ let _clients = null;
 let _sanctions = null;
 let _ppe = null;
 let _apiReachable = null;
+let _syncErrors = [];
 
 export function isApiReachable() {
   return _apiReachable;
+}
+
+export function getSyncErrors() {
+  return _syncErrors;
+}
+
+export function resetLocalState() {
+  _clients = null;
+  _sanctions = null;
+  _ppe = null;
+  _apiReachable = null;
+  _syncErrors = [];
 }
 
 async function tryFetchJson(url, timeoutMs = 12000) {
@@ -88,13 +101,15 @@ async function tryFetchJson(url, timeoutMs = 12000) {
     const res = await withTimeout(fetch(url), timeoutMs);
     if (!res.ok) return null;
     return await res.json();
-  } catch {
+  } catch (err) {
+    _syncErrors.push(`${url}: ${err.name === 'TimeoutError' || err.message === 'timeout' ? 'délai dépassé' : err.message}`);
     return null;
   }
 }
 
 export async function hydrateCache() {
   let online = false;
+  _syncErrors = [];
 
   if (navigator.onLine) {
     for (let attempt = 0; attempt < 3 && !online; attempt++) {

@@ -66,3 +66,15 @@ export async function hasCache() {
     return false;
   }
 }
+
+export async function clearCache() {
+  const db = await openDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(['sanctions', 'ppe', 'clients'], 'readwrite');
+    tx.objectStore('sanctions').clear();
+    tx.objectStore('ppe').clear();
+    tx.objectStore('clients').clear();
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}

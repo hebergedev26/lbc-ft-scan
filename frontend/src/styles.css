@@ -278,6 +278,13 @@ body {
   cursor: wait;
 }
 
+.sync-errors {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: #7c2d12;
+  text-align: left;
+}
+
 .score {
   font-weight: 700;
 }

@@ -4,7 +4,8 @@ import ClientProfile from './components/ClientProfile.jsx';
 import AlertBanner from './components/AlertBanner.jsx';
 import AlertHistory from './components/AlertHistory.jsx';
 import StatsCards from './components/StatsCards.jsx';
-import { searchClient, getStats, getAlertHistory, hydrateCache, isApiReachable } from './services/api.js';
+import { searchClient, getStats, getAlertHistory, hydrateCache, isApiReachable, getSyncErrors, resetLocalState } from './services/api.js';
+import { clearCache } from './services/offline.js';
 
 function formatFcfa(n) {
   return new Intl.NumberFormat('fr-FR').format(n) + ' FCFA';
@@ -52,6 +53,23 @@ export default function App() {
   }, [sync]);
 
   const apiReachable = isApiReachable();
+  const syncErrors = getSyncErrors();
+
+  const resetAndReload = async () => {
+    setSyncing(true);
+    try {
+      await clearCache();
+    } catch {}
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map((r) => r.unregister()));
+      if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+      }
+    }
+    resetLocalState();
+    location.reload();
+  };
 
   useEffect(() => {
     refreshStats();
@@ -117,6 +135,16 @@ export default function App() {
                 <button className="btn-link" onClick={sync} disabled={syncing}>
                   {syncing ? 'Synchronisation…' : 'Réessayer la connexion'}
                 </button>
+                <button className="btn-link" onClick={resetAndReload}>
+                  Vider le cache et recharger
+                </button>
+                {syncErrors.length > 0 && (
+                  <div className="sync-errors">
+                    {[...new Set(syncErrors)].slice(0, 4).map((e) => (
+                      <div key={e}>· {e}</div>
+                    ))}
+                  </div>
+                )}
               </span>
             </div>
           )}
