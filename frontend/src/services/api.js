@@ -3,12 +3,14 @@ import { evaluateAlerts, clientMatchLevel } from '../../../shared/rules.js';
 import { cacheSanctions, cacheClients, getCachedSanctions, getCachedPpe, getCachedClients } from './offline.js';
 let lastSync = null;
 
-function withTimeout(promise, ms = 6000) {
+function withTimeout(promise, ms = 12000) {
   return Promise.race([
     promise,
     new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms)),
   ]);
 }
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export async function searchClient(name, dob) {
   const params = new URLSearchParams({ q: name });
@@ -81,9 +83,9 @@ export function isApiReachable() {
   return _apiReachable;
 }
 
-async function tryFetchJson(url) {
+async function tryFetchJson(url, timeoutMs = 12000) {
   try {
-    const res = await withTimeout(fetch(url), 4000);
+    const res = await withTimeout(fetch(url), timeoutMs);
     if (!res.ok) return null;
     return await res.json();
   } catch {
@@ -95,22 +97,27 @@ export async function hydrateCache() {
   let online = false;
 
   if (navigator.onLine) {
-    const [sanctions, ppe, clients] = await Promise.all([
-      tryFetchJson('/api/sanctions'),
-      tryFetchJson('/api/clients/full'),
-    ]);
-    if (sanctions && clients) {
-      _sanctions = sanctions.sanctions;
-      _ppe = sanctions.ppe;
-      _clients = clients;
-      try {
-        await cacheSanctions(sanctions.sanctions, sanctions.ppe);
-        await cacheClients(clients);
-      } catch {
-        /* le cache IDB reste dans les variables mémoire */
+    for (let attempt = 0; attempt < 3 && !online; attempt++) {
+      const timeoutMs = attempt === 0 ? 25000 : 40000;
+      const [sanctions, ppe, clients] = await Promise.all([
+        tryFetchJson('/api/sanctions', timeoutMs),
+        tryFetchJson('/api/clients/full', timeoutMs),
+      ]);
+      if (sanctions && clients) {
+        _sanctions = sanctions.sanctions;
+        _ppe = sanctions.ppe;
+        _clients = clients;
+        try {
+          await cacheSanctions(sanctions.sanctions, sanctions.ppe);
+          await cacheClients(clients);
+        } catch {
+          /* le cache IDB reste dans les variables mémoire */
+        }
+        lastSync = new Date().toISOString();
+        online = true;
+      } else if (attempt < 2) {
+        await sleep(4000);
       }
-      lastSync = new Date().toISOString();
-      online = true;
     }
   }
 
