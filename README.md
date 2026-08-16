@@ -95,3 +95,29 @@ et relancez la recherche — elle fonctionne en local.
 Bonus +8 si date de naissance identique, pénalité −10 si nom exact mais DOB
 différente. Token inattendu côté liste (ex. « Diop-Sow ») → pénalité qui évite
 les faux positifs.
+
+## Déploiement en ligne (Render, gratuit)
+
+Le dépôt est prêt (`.gitignore` + `render.yaml`). Une seule étape manuelle :
+pousser le code sur GitHub, puis créer le service sur Render.
+
+1. **Pousser sur GitHub**
+   ```bash
+   git remote add origin https://github.com/VOTRE_COMPTE/lbc-ft-scan.git
+   git branch -M main
+   git push -u origin main
+   ```
+   (ou glissez-déposez le dossier sur https://github.com/new si le CLI n'est pas installé)
+
+2. **Créer le service sur https://dashboard.render.com**
+   - « New » → « Blueprint » → sélectionner le dépôt → Render lit `render.yaml`.
+   - Ou : « New » → « Web Service » → choisir le dépôt → Réglages manuels :
+     - **Build Command** : `npm run build`
+     - **Start Command** : `npm start`
+     - Plan **Free**.
+
+3. L'URL sera de la forme `https://lbc-ft-scan.onrender.com` (API + site ensemble).
+
+> ⚠️ Le plan gratuit de Render met le service en veille après 15 min sans
+> trafic : la première ouverture prend ~30-50 s, ensuite c'est instantané.
+> Pour une démo fluide, ouvrez la page 1 minute avant de passer à l'oral.
